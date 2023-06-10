@@ -1,0 +1,23 @@
+;;;;; https://github.com/fuku77
+
+(include "./src/dashboard.yuck")
+(include "./src/notification-center.yuck")
+(include "./src/power-menu.yuck")
+(include "./src/statusbar.yuck")
+(include "./src/calendar.yuck")
+
+; Background
+(defwindow blur-full
+    :monitor 0
+    :windowtype "dock"
+    :geometry (geometry 
+        :x "-10%"
+        :y "-10%"
+        :width "130%"
+        :height "130%"
+        :anchor "center"
+    )
+    
+    (eventbox :onrightclick "eww --config $HOME/.config/xmonad/lib/Themes/Theme/widgets close-all"
+    )
+)

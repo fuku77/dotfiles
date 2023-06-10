@@ -1,0 +1,105 @@
+# httpd://github.com/fuku77
+# owl4ce's config originally used as a template
+
+# MPD
+# ---
+mpd_host = "127.0.0.1"
+mpd_port = "6600"
+mpd_crossfade_time = "2"
+
+# VISUALIZER
+# ---
+visualizer_data_source = "/tmp/mpd.fifo"
+visualizer_output_name = "Visualizer"
+visualizer_in_stereo = "no"
+visualizer_fps = "60"
+visualizer_type = "wave"
+visualizer_look = "##"
+visualizer_color = "1"
+
+# GENERAL
+# ---
+mpd_music_dir = "~/Music"
+lyrics_directory = "~/Music/lyrics"
+
+connected_message_on_startup = "no"
+cyclic_scrolling = "yes"
+jump_to_now_playing_song_at_start = "yes"
+
+mouse_support = "yes"
+mouse_list_scroll_whole_page = "no"
+lines_scrolled = "1"
+
+message_delay_time = "1"
+
+playlist_shorten_total_times = "yes"
+
+playlist_display_mode = "columns"
+browser_display_mode = "columns"
+search_engine_display_mode = "columns"
+playlist_editor_display_mode = "columns"
+autocenter_mode = "yes"
+
+centered_cursor = "yes"
+user_interface = "alternative"
+
+locked_screen_width_part = "32"
+ask_for_locked_screen_width_part = "no"
+
+display_bitrate = "no"
+
+startup_screen = "playlist"
+
+empty_tag_marker = "none"
+
+allow_for_physical_item_deletion = "yes"
+
+# PROGRESS BAR
+# ---
+#progressbar_look = "━━━"
+progressbar_look = "▃▃▃"
+#progressbar_look = "─┤─"
+progressbar_elapsed_color = "5"
+progressbar_color = "black"
+
+# UI VISIBILITY
+# ---
+header_text_scrolling = "yes"
+header_visibility = "no"
+statusbar_visibility = "no"
+titles_visibility = "no"
+enable_window_title = "no"
+
+# COLORS
+# ---
+main_window_color = "default"
+state_line_color = "black"
+alternative_ui_separator_color = "black"
+statusbar_color = "white"
+color1 = "magenta"
+color2 = "black"
+
+# UI APPEARANCE
+# ---
+now_playing_prefix = "$b "
+now_playing_suffix = " $/b$9"
+current_item_prefix = "$0 "
+current_item_suffix = " $9"
+
+alternative_header_first_line_format = "» {$2%t$9} «"
+
+alternative_header_second_line_format = "{$6%a$9}"
+
+song_library_format = "{%n - }{%t}|{%f}"
+
+song_columns_list_format = "(25)[6]{a} (35)[]{t} (10)[7]{l} (25)[]{}$9"
+
+song_list_format = "{$3%a$9 » %t}|{%f $R $3none;$9}"
+
+song_status_format = "$b$7{$8 %b }|{$8 %t }|{$8 %f }$7$8"
+
+song_window_title_format = "ncmpcpp"
+
+# EXEC SCRIPT
+# ---
+execute_on_song_change = "~/.config/ncmpcpp/ncmpcpp-ueberzug/ncmpcpp_cover_art.sh"

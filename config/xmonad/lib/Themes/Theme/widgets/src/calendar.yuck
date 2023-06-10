@@ -1,0 +1,26 @@
+;;;;; https://github.com/fuku77
+
+(defpoll header   :interval "0.1s" :initial "." `./scripts/calendar.sh header`)
+(defpoll weekdays :interval "0.1s" :initial "." `./scripts/calendar.sh weekdays`)
+(defpoll days     :interval "0.1s" :initial "." `./scripts/calendar.sh days`)
+(defpoll padding   :interval "0.1s" :initial "." `./scripts/calendar.sh padding`)
+
+
+(defwindow calendar
+    :monitor 0
+    :windowtype "dock"
+    :geometry (geometry
+        :x "79%"
+        :y "5%"
+        :width "12%"
+        :height "21%"
+    )
+    (box :class "winbase calendar-box" :orientation "v" :halign "center" :spacing 5 :space-evenly false
+        (box :class "calendar-header" :halign "center" :valign "start" :orientation "h" :spacing 10 :space-evenly false
+            (button :class "calendar-dec-month" :onclick "./scripts/calendar.sh dec-month" "")
+            (label :class "calendar-header" :text header)
+            (button :class "calendar-inc-month" :onclick "./scripts/calendar.sh inc-month" "")
+        )
+        (label :class "calendar-weekdays" :text weekdays)
+    )
+)

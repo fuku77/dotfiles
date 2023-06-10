@@ -1,0 +1,9 @@
+#!/bin/bash
+# https://github.com/fuku77
+
+# Put your autostart commands/programs here.
+# These will run everytime xmonad is restarted.
+
+# Theme specific autostart
+themeExecOnRestart=$1
+eval "$themeExecOnRestart"

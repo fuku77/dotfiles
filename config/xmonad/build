@@ -1,0 +1,23 @@
+#!/bin/sh
+# https://github.com/fuku77
+
+# The directory holding your source code and stack.yaml file:
+SRC_DIR="$HOME"/.config/xmonad
+
+# Unset STACK_YAML, to ensure that $SRC_DIR/stack.yaml is used.
+unset STACK_YAML
+
+# Do the build.
+cd "$SRC_DIR" || exit
+
+stack exec --package MissingH -- \
+stack ghc -- 			         \
+	--make xmonad.hs 	         \
+	-i		 			         \
+	-ilib		 		         \
+	-fforce-recomp   	         \
+	-no-keep-o-files	         \
+	-no-keep-hi-files	         \
+	-main-is main	 	         \
+	-v0		 			         \
+	-o "$1"

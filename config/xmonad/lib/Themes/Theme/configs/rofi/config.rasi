@@ -1,0 +1,189 @@
+/* https://github.com/fuku77 */
+
+configuration {
+	modi: "drun";
+	/*combi-modi: " :~/.config/rofi/rofi-power-menu.sh";*/
+	font: "DejaVu Sans Mono 12";
+	show-icons: false;
+	
+	terminal: "alacritty";
+	
+	drun-match-fields: "name,generic,exec,categories,keywords";
+/*	drun-categories: ;*/
+/*	drun-show-actions: false;*/
+/*	drun-display-format: "{name} [<span weight='light' size='small'><i>({generic})</i></span>]";*/
+/*	drun-url-launcher: "xdg-open";*/
+
+	display-drun: "Apps";
+	display-emoji: "Emoji";
+	display-calc: "Calc";
+	display-power-menu: "Power";
+
+  timeout {
+      action: "kb-cancel";
+      delay:  0;
+  }
+  filebrowser {
+      directories-first: true;
+      sorting-method:    "name";
+  }
+}
+
+#window {
+    background-color: @background;
+    border: 0;
+    padding: 0;
+
+    width: 30%;
+    height: 40%;
+}
+
+#mainbox {
+    border: 0;
+    padding: 0;
+}
+
+#message {
+    border: 2px 0px 0px;
+    border-color: @border-color;
+    padding: 1px;
+}
+
+#textbox {
+    expand: false;
+    text-color: @foreground;
+}
+
+#inputbar {
+    margin: 0.75% 0% 0%;
+    children:   [ prompt,entry,case-indicator ];
+}
+
+#textbox-prompt-colon {
+    expand: false;
+    margin: 0.5% 0em 0em;
+    text-color: @normal-foreground;
+}
+
+#listview {
+    fixed-height: 1;
+    border: 2px 2px 2px;
+    margin: 0.75% 0.75% 0.75%;
+    border-color: @border-color;
+    spacing: 0;
+    scrollbar: false;
+    padding: 0px 0px 0px;
+}
+
+#element {
+    border: 0;
+    padding: 10px;
+}
+
+
+#element.normal.normal {
+    background-color: @normal-background;
+    text-color: @normal-foreground;
+}
+
+#element.normal.urgent {
+    background-color: @urgent-background;
+    text-color: @urgent-foreground;
+}
+
+#element.normal.active {
+    background-color: @active-background;
+    text-color: @active-foreground;
+}
+
+#element.selected.normal {
+    background-color: @selected-normal-background;
+    text-color: @selected-normal-foreground;
+}
+
+#element.selected.urgent {
+    background-color: @selected-urgent-background;
+    text-color: @selected-urgent-foreground;
+}
+
+#element.selected.active {
+    background-color: @selected-active-background;
+    text-color: @selected-active-foreground;
+}
+
+#element.selected.normal {
+    background-color: @selected-normal-background;
+    text-color: @selected-normal-foreground;
+}
+
+#element.selected.urgent {
+    background-color: @selected-urgent-background;
+    text-color: @selected-urgent-foreground;
+}
+
+#element.selected.active {
+    background-color: @selected-active-background;
+    text-color: @selected-active-foreground;
+}
+
+#element.alternate.normal {
+    background-color: @alternate-normal-background;
+    text-color: @alternate-normal-foreground;
+}
+
+#element.alternate.urgent {
+    background-color: @alternate-urgent-background;
+    text-color: @alternate-urgent-foreground;
+}
+
+#element.alternate.active {
+    background-color: @alternate-active-background;
+    text-color: @alternate-active-foreground;
+}
+
+#scrollbar {
+    width: 4px;
+    border: 0;
+    handle-width: 8px;
+    padding: 0;
+}
+
+#sidebar {
+    border: 2px 0px 0px;
+    border-color: @border-color;
+}
+
+#button {
+    text-color: @normal-foreground;
+}
+
+#button.selected {
+    background-color: @selected-normal-background;
+    text-color: @selected-normal-foreground;
+}
+
+#inputbar {
+    spacing: 0;
+    text-color: @normal-foreground;
+    padding: 1px;
+}
+
+#case-indicator {
+    spacing: 0;
+    text-color: @normal-foreground;
+}
+
+#entry {
+    spacing: 0;
+    padding: 0%;
+    margin: 1.25% 0% 0.75%;
+    text-color: @normal-foreground;
+}
+
+#prompt {
+    spacing: 0;
+    text-color: @selected-normal-foreground;
+    background-color: @selected-normal-background;
+    padding: 0.5%;
+    margin: 0.75% 0.75% 0.75%;
+}

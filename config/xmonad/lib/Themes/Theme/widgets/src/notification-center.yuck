@@ -1,0 +1,30 @@
+;;;;; https://github.com/fuku77
+
+(defpoll dunst-history :interval "1m" `dunstctl history`)
+
+(defwindow notif-main
+    :monitor 0
+    :geometry (geometry
+        :x "1454"
+        :y "57"
+        :width "450"
+        :height "1007")
+    :stacking "fg"
+    :wm-ignore false
+    :windowtype "dock"
+    :reserve (struts :distance "466" :side "right")
+    (scroll :vscroll true :hexpand false :hscroll false :class "notification-main-scroller"
+        (box :class "winbase notification-main-box" :halign "center" :valign "center" :orientation "v" :spacing 5 :space-evenly false
+            (for notification in {dunst-history.data[0]}
+                    (box :class "notification" :halign "start" :valign "center" :orientation "h" :spacing 20 :space-evenly false
+                        (box :class "notification-image" :width 64 :height 64 :halign "start"
+                            :style "background-image: url('${notification.icon_path.data != '' ? notification.icon_path.data : './img/bell.svg'}');")
+                        (box :class "notification-text" :halign "start" :orientation "v" :spacing 5 :space-evenly false
+                            (label :class "notification-summary" :halign "start" :wrap true :text "${notification.summary.data}")
+                            (label :class "notification-body" :halign "start" :wrap true :limit-width 64 :text "${notification.body.data}")
+                        )
+                    )
+            )
+        )
+    )
+)

@@ -1,0 +1,10 @@
+#!/bin/bash
+# https://github.com/fuku77
+
+if [ -n "$(xdotool search --onlyvisible --classname xmobar)" ]; then
+    xdotool search --onlyvisible --classname xmobar \
+    windowunmap %@ 
+else
+    xdotool search --classname xmobar \
+    windowmap %@ 
+fi

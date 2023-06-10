@@ -1,0 +1,18 @@
+#!/bin/bash 
+# https://github.com/fuku77
+
+# Put your autostart commands/programs here.
+# These will only run once, at xmonad startup.
+
+source $HOME/.fk/env
+
+# These are my personal startup programs
+firefox &
+# discord &
+Discord & # For the void users (me)
+steam &
+# keepassxc &
+$HOME/Downloads/ASF/ArchiSteamFarm &
+
+# mpd notifyer 'daemon' script
+nohup $FK_SCRIPT_DIR/mpd-notifyer.sh 0<&- &>/dev/null &

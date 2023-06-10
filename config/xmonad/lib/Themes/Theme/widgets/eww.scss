@@ -1,0 +1,456 @@
+// https://github.com/fuku77
+
+@import './stylesheets/colors.scss';
+
+/* 
+This file is a mess but i cba to organize all this shitso if it works it works
+*/
+
+* {
+    all: unset; // Unsets everything so you can style everything from scratch
+
+    font-family: 'JetBrains Mono Nerd Font';
+    font-size: 24px;
+
+    color: $colorFg;
+}
+
+window {
+    background-color: $colorBg;
+    border-radius: 0px;
+}
+
+.winbase {
+    margin: 15px 15px 15px 15px;
+}
+
+.blur-full {
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    border-radius: 0px;
+}
+
+.statusbar * {
+    font-size: 16px;
+}
+
+
+
+.hidden-desktop-button {
+    min-height: 2px;
+    min-width: 10px;
+    
+}
+
+.statusbar * {
+    font-family: 'JetBrains Mono Nerd Font', 'feather';
+}
+
+.bar-icon {
+    font-size: 110%;
+}
+
+.window-icon {
+    color: $color04;
+}
+
+.bar-text {
+    font-size: 75%;
+}
+
+.bar-left *:hover {
+    background-color: unset;
+}
+
+.hidden-desktop-button label {
+    color: $color12;
+    margin: 5px;
+}
+
+.current-desktop-button label {
+    color: $color12;
+    margin: 5px;
+}
+
+// Boxes
+
+.profile-picture {
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 180px;
+    min-width: 180px;
+    border-radius: 12px;
+}
+
+.music-album-art {
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 150px;
+    min-width: 150px;
+    border-radius: 12px;
+}
+
+.music-box-info-buttons {
+    font-weight: bold;
+    font-size: 30%;
+}
+
+.music-box-buttons {
+    margin: 0px 0px 0px 0px;
+}
+
+.music-box-buttons label {
+    color: $color04;
+    font-size: 125%;
+}
+
+.music-title {
+    font-weight: bolder;
+    font-size: 90%;
+}
+
+.music-artist {
+    font-size: 65%;
+    font-weight: lighter;
+    color: $color08;
+}
+
+.apps-line {
+    margin: 0px 0px 0px -10px;
+}
+
+.apps-line * {
+    font-size: 135%;
+}
+
+.apps-line *:hover {
+    background-color: unset;
+}
+
+.browser label {
+    color: $color01;
+}
+
+.discord label {
+    color: $color04;
+}
+
+.terminal label {
+    color: $color05;
+}
+
+.steam label {
+    color: $color06;
+}
+
+.vscode label {
+    color: $color13;
+}
+
+.music-app label {
+    color: $color14;
+}
+
+.time-box {
+    margin: -15px 0px -15px 0px;
+}
+
+.timetext {
+    font-weight: 500;
+    font-size: 250%;
+    margin: 0px 0px 10px 0px;
+    color: $color02;
+}
+
+.datetext {
+    font-size: 65%;
+    margin: 0px 0px 15px 0px;
+    color: $color09;
+}
+
+.username {
+    font-size: 150%;
+    font-weight: 700;
+    color: $colorDom;
+}
+
+.user-host {
+    font-family: 'Hack Nerd Font Mono';
+    font-size: 75%;
+    color: $color07;
+}
+
+.fortune-icon {
+    font-size: 120%;
+    color: $color05;
+}
+
+.fortune-text {
+    font-size: 60%;
+    font-style: italic;
+
+}
+
+
+
+// .user-quote {
+//     font-size: 50%;
+//     font-style: italic;
+//     color: $color04;
+// }
+
+.directory-box {
+    margin: 0px -15px 0px -15px;
+}
+
+.disk-usage-box {
+    background-color: $color08;
+    border-radius: 12px;
+}
+
+.disk-usage-box * {
+    margin: 0px 15px 0px 15px;
+}
+
+.disk-usage {
+    font-size: 150%;
+    font-weight: 500;
+    color: $color15;
+}
+
+.disk-usage-icon {
+    font-size: 350%;
+    color: $color15;
+}
+
+.volume-box {
+    margin: -15px 0px -15px 0px;
+}
+
+.volume-indicator {
+    font-size: 75%;
+}
+
+.volume-slider-button label {
+    color: $color04;
+}
+
+button {
+    border-radius: 12px;
+}
+
+button label {
+    margin: 0px 10px 0px 10px;
+}
+
+button:hover {
+    background-color: $color00;
+}
+
+button:active {
+    background-color: rgba($color15, 0.5);
+}
+
+.directory-buttons *:nth-child(1) label { color: $color01; }
+.directory-buttons *:nth-child(2) label { color: $color06; }
+.directory-buttons *:nth-child(3) label { color: $color02; }
+.directory-buttons *:nth-child(4) label { color: $color05; }
+.directory-buttons *:nth-child(5) label { color: $color03; }
+
+.dots * {
+    font-weight: bolder;
+}
+
+.dots *:nth-child(1) { color: $color01; }
+.dots *:nth-child(2) { color: $color02; }
+.dots *:nth-child(3) { color: $color03; }
+.dots *:nth-child(4) { color: $color04; }
+.dots *:nth-child(5) { color: $color05; }
+.dots *:nth-child(6) { color: $color06; }
+.dots *:nth-child(7) { color: $color07; }
+
+.dots-2 *:nth-child(1) { color: $color09; }
+.dots-2 *:nth-child(2) { color: $color10; }
+.dots-2 *:nth-child(3) { color: $color11; }
+.dots-2 *:nth-child(4) { color: $color12; }
+.dots-2 *:nth-child(5) { color: $color13; }
+.dots-2 *:nth-child(6) { color: $color14; }
+.dots-2 *:nth-child(7) { color: $color15; }
+
+.weather-icon {
+    font-size: 450%; 
+    margin: 0px 0px 0px 15px;
+}
+
+.weather-temp {
+    color: $color11;
+    font-size: 175%; 
+    font-weight: bold;
+    margin: 0px 0px 30px 30px;
+}
+
+.weather-status {
+    color: $colorDom;
+    font-size: 90%;
+    font-weight: 400;
+}
+
+.weather-quote-long {
+    color: $colorFg;
+    font-size: 65%;
+    font-weight: 200;
+}
+
+.sysfetch-box {
+    background-color: adjust-color($color: $colorBg, $lightness: 4%);
+    border-radius: 12px;
+    margin: 12px 12px 12px 12px;
+    min-width: 350px;
+    min-height: 50px;
+}
+
+.sysfetch-row-1 { margin: 5px 0px 0px 0px; }
+.sysfetch-row-2 { margin: 0px 0px 5px 0px; }
+
+.sysfetch-row-2 *, .sysfetch-row-1 * {
+    font-family: 'Sauce Code Pro Nerd Font Mono';
+    font-size: 85%;
+}
+
+.sysuser-label {
+    font-size: 150%;
+    font-weight: bolder;
+    color: $color02;
+}
+
+.os-label {
+    font-size: 150%;
+    font-weight: bolder;
+    color: $color03;
+}
+
+.kernel-label {
+    font-size: 150%;
+    font-weight: bolder;
+    color: $color04;
+}
+
+.shell-label {
+    font-size: 150%;
+    font-weight: bolder;
+    color: $color05;
+}
+
+.syspkgs-label {
+    font-size: 150%;
+    font-weight: bolder;
+    color: $color01;
+}
+
+.sysuptime-label {
+    font-size: 150%;
+    font-weight: bolder;
+    color: $color06;
+}
+
+.powerbuttons-box button label {
+    font-size: 120%;
+    font-weight: 800;
+    margin-right: 12px;
+}
+
+.powerbuttons-box .suspend label {
+    margin-right: 15px;
+}
+
+.power-menu {
+    background-color: unset;
+}
+
+.power-menu-box {
+    background-color: unset;
+}
+
+.power-menu-box button:hover {
+    background-color: unset;
+}
+
+.power-menu-box button label {
+    font-size: 850%;
+    font-weight: 800;
+    margin: 0px 75px 0px 50px;
+}
+
+.shutdown label { color: $color01; }
+.restart label { color: $color02; }
+.suspend label { color: $color03; }
+.logout label { color: $color04; }
+.lock label { color: $color05; }
+
+// Scales & Sliders
+
+scale {
+    border-radius: 12px;
+}
+
+progressbar through {
+    min-width: 20px;
+}
+
+.volume-slider trough {
+    border-radius: 12px;
+    background-color: $color00;
+    min-width: 20px;
+    box-shadow: 0px 0px 7px $colorBg;
+}
+
+.volume-slider highlight {
+    border-radius: 20px;
+    background: linear-gradient(to bottom, $color04, $color05);
+}
+
+.music-progress trough {
+    border-radius: 12px;
+    background-color: $color15;
+    min-width: 20px;
+    box-shadow: 0px 0px 7px $colorBg;
+}
+
+.music-progress highlight {
+    border-radius: 20px;
+    background: linear-gradient(to bottom, $color04, $color04);
+}
+
+.notification-main-scroller {
+}
+
+.notification-main-scroller highlight {
+    background-color: $color05;
+}
+
+.notification-main-box {
+    background-color: rgba($colorBg, 0.2);
+}
+
+.notification {
+    margin: 10px 10px 10px 10px;
+    border-radius: 12px;
+    min-width: 400px;
+    min-height: 75px;
+}
+
+.notification-summary {
+    font-weight: bolder;
+    font-size: 200%;
+}
+
+.notification-body {
+    font-size: 60%;
+}
+
+.notification-image {
+    background-repeat: no-repeat;
+    background-size: 64px;
+    min-height: 64px;
+    min-width: 64px;
+    border-radius: 12px;
+}

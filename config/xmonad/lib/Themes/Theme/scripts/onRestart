@@ -1,0 +1,197 @@
+#!/bin/bash
+# https://github.com/fuku77/
+
+################################################
+## Setting external applications' themes etc. ##
+################################################
+
+source $HOME/.fk/env
+
+warningText="
+THIS FILE SHOULD NOT BE EDITED, AS IT WILL BE OVERWRITTEN ON EVERY WM RESTART.
+TO EDIT THE CONFIG, GO TO THE CORRESPONDING THEME FOLDER IN 'Themes'
+THE COLORSCHEME IS AUTOMATICALLY SET DEPENDING ON YOUR XMONAD COLORSCHEME
+IF YOU WANT TO SET THE COLORSCHEME MANUALLY, EDIT 'path/to/theme/scripts/setThemes'
+"
+
+# Making sure eww daemon is running...
+
+eww ping || eww daemon --config "$HOME"/.fk/Theme/widgets/ --debug
+
+# Setting eww colorscheme...
+echo "
+\$colorBg: $FK_COLOR_BG;
+\$colorFg: $FK_COLOR_FG;
+\$color00: $FK_COLOR_00;
+\$color01: $FK_COLOR_01;
+\$color02: $FK_COLOR_02;
+\$color03: $FK_COLOR_03;
+\$color04: $FK_COLOR_04;
+\$color05: $FK_COLOR_05;
+\$color06: $FK_COLOR_06;
+\$color07: $FK_COLOR_07;
+\$color08: $FK_COLOR_08;
+\$color09: $FK_COLOR_09;
+\$color10: $FK_COLOR_10;
+\$color11: $FK_COLOR_11;
+\$color12: $FK_COLOR_12;
+\$color13: $FK_COLOR_13;
+\$color14: $FK_COLOR_14;
+\$color15: $FK_COLOR_15;
+\$colorDom: $FK_COLOR_DOM;
+" > "$HOME"/.fk/Theme/widgets/stylesheets/colors.scss
+
+
+## Set theme wp
+[ -n "$FK_WALLPAPER" ] && feh --bg-fill --no-fehbg "$FK_WALLPAPER"
+
+## Handling Picom
+picom_cmd="picom --experimental-backends"
+
+# Kill picom if there are changes to picom_add_settings
+[[ $(pgrep -a picom | sed -n "s/.*$picom_cmd\\ //p") != "$FK_PICOM_ADD_SETTINGS" ]] && killall picom
+
+# Making sure picom is running
+pgrep picom || exec $picom_cmd $FK_PICOM_ADD_SETTINGS &
+
+
+## Set rofi theme
+mkdir -p ~/.config/rofi/scripts
+
+cp ~/.fk/Theme/configs/rofi/scripts/* ~/.config/rofi/scripts/
+
+echo "/* $warningText */" > ~/.config/rofi/config.rasi
+cat ~/.fk/Theme/configs/rofi/config.rasi >> ~/.config/rofi/config.rasi
+
+# Set colors dynamically
+echo -e "
+* {
+    active-background: @background;
+    active-foreground: @foreground;
+    normal-background: @background;
+    normal-foreground: @foreground;
+    urgent-background: @background;
+    urgent-foreground: @foreground;
+
+    alternate-active-background: @background;
+    alternate-active-foreground: @foreground;
+    alternate-normal-background: @background;
+    alternate-normal-foreground: @foreground;
+    alternate-urgent-background: @background;
+    alternate-urgent-foreground: @foreground;
+
+    selected-active-background: $FK_COLOR_DOM;
+    selected-active-foreground: $FK_COLOR_BG;
+    selected-normal-background: $FK_COLOR_DOM;
+    selected-normal-foreground: $FK_COLOR_BG;
+    selected-urgent-background: $FK_COLOR_DOM;
+    selected-urgent-foreground: $FK_COLOR_BG;
+
+    background-color: @background;
+    background: $FK_COLOR_BG;
+    foreground: $FK_COLOR_FG;
+    border-color: @background;
+    spacing: 2;
+}" >> ~/.config/rofi/config.rasi
+
+## Set dunst theme
+mkdir -p ~/.config/dunst
+
+echo "$warningText" | sed 's/.*/### &/' > ~/.config/dunst/dunstrc
+cat ~/.fk/Theme/configs/dunst/dunstrc >> ~/.config/dunst/dunstrc
+
+# Set colors dynamically
+echo "
+[global]
+    highlight = \"$FK_COLOR_DOM\"
+
+[urgency_low]
+    # IMPORTANT: colors have to be defined in quotation marks.
+    # Otherwise the \"#\" and following would be interpreted as a comment.
+    background = \"$FK_COLOR_BG\"
+    foreground = \"$FK_COLOR_FG\"
+    frame_color = \"$FK_COLOR_DOM\"
+    timeout = 10
+    # Icon for notifications with low urgency, uncomment to enable
+    #default_icon = /path/to/icon
+
+[urgency_normal]
+    background = \"$FK_COLOR_BG\"
+    foreground = \"$FK_COLOR_FG\"
+    frame_color = \"$FK_COLOR_DOM\"
+    timeout = 10
+    # Icon for notifications with normal urgency, uncomment to enable
+    #default_icon = /path/to/icon
+
+[urgency_critical]
+    background = \"$FK_COLOR_BG\"
+    foreground = \"$FK_COLOR_FG\"
+    frame_color = \"$FK_COLOR_DOM\"
+    timeout = 0
+" >> ~/.config/dunst/dunstrc
+
+# Restart dunst
+killall -q dunst; dunst &
+
+## Set kitty theme
+mkdir -p ~/.config/kitty/kitty.d
+
+echo "$warningText" | sed 's/.*/### &/' > ~/.config/kitty/kitty.conf
+cat ~/.fk/Theme/configs/kitty/kitty.conf >> ~/.config/kitty/kitty.conf
+
+# Set colors
+echo "
+foreground $FK_COLOR_FG
+background $FK_COLOR_BG
+
+color0 $FK_COLOR_00
+color1 $FK_COLOR_01
+color2 $FK_COLOR_02
+color3 $FK_COLOR_03
+color4 $FK_COLOR_04
+color5 $FK_COLOR_05
+color6 $FK_COLOR_06
+color7 $FK_COLOR_07
+color8 $FK_COLOR_08
+color9 $FK_COLOR_09
+color10 $FK_COLOR_10
+color11 $FK_COLOR_11
+color12 $FK_COLOR_12
+color13 $FK_COLOR_13
+color14 $FK_COLOR_14
+color15 $FK_COLOR_15
+" >> ~/.config/kitty/kitty.d/colors.conf
+
+## Set alacritty theme
+mkdir -p ~/.config/alacritty
+
+echo "$warningText" | sed 's/.*/### &/' > ~/.config/alacritty/alacritty.yml
+cat ~/.fk/Theme/configs/alacritty/alacritty.yml >> ~/.config/alacritty/alacritty.yml
+
+# Set colors dynamically
+echo "
+colors:
+  # Default colors
+  primary:
+    background: '$FK_COLOR_BG'
+    foreground: '$FK_COLOR_FG'
+  normal:
+    black:   '$FK_COLOR_00'
+    red:     '$FK_COLOR_01'
+    green:   '$FK_COLOR_02'
+    yellow:  '$FK_COLOR_03'
+    blue:    '$FK_COLOR_04'
+    magenta: '$FK_COLOR_05'
+    cyan:    '$FK_COLOR_06'
+    white:   '$FK_COLOR_07'
+
+  # Bright colors
+  bright:
+    black:   '$FK_COLOR_08'
+    red:     '$FK_COLOR_09'
+    green:   '$FK_COLOR_10'
+    yellow:  '$FK_COLOR_11'
+    blue:    '$FK_COLOR_12'
+    magenta: '$FK_COLOR_13'
+    cyan:    '$FK_COLOR_14'
+    white:   '$FK_COLOR_15'" >> ~/.config/alacritty/alacritty.yml

@@ -1,0 +1,82 @@
+;;;;; https://github.com/fuku77
+
+(defpoll current-desktop :interval "0.1s" :initial "0" `echo $(($(xdotool get_desktop) + 1))`)
+(defpoll num-desktops :interval "2s" :initial "[0]" `seq -s ', ' 1 $(xdotool get_num_desktops) | sed 's/.*/\[&\]/'`)
+
+(defpoll window-name :interval "0.2s" :initial " " `./scripts/get-window-focus.sh`)
+
+(defpoll time2 :interval "0.5s" :initial "00:00" `date +%H:%M`)
+
+(defwindow bar-left
+    :monitor 0
+    :geometry (geometry
+        :x "16"
+        :y "57"
+        :width "210"
+        :height "32")
+    :stacking "fg"
+    :wm-ignore false
+    :windowtype "dock"
+    :reserve (struts :distance "89" :side "top")
+    (box :class "statusbar bar-left" 
+    ; :style "* *:nth-child(4) label {color: #000000;};"
+        (eventbox 
+            :onscroll "[ '{}' = 'up' ] && 
+                { 
+                    [ $(xdotool get_num_desktops) -gt $(($(xdotool get_desktop) + 1)) ] && 
+                        xdotool set_desktop $(($(xdotool get_desktop) + 1)) || 
+                        xdotool set_desktop 0; } || 
+                { [ $(xdotool get_desktop) -gt 0 ] && 
+                    xdotool set_desktop $(($(xdotool get_desktop) - 1)) || 
+                    xdotool set_desktop $(($(xdotool get_num_desktops) - 1)); }"
+            (box :orientation "h" :space-evenly false :spacing 5 :halign "center"
+                (for desktop in {num-desktops}
+                    (button :width 0 :height 00
+                        :class "${desktop != current-desktop ? 'hidden-desktop-button' : 'current-desktop-button' }" 
+                        :onclick "xdotool set_desktop ${desktop - 1}" 
+                        "${desktop != current-desktop ? '' : '' }")
+                )
+            )
+        )
+    )
+)
+
+(defwindow bar-middle
+    :monitor 0
+    :geometry (geometry
+        :x "242"
+        :y "57"
+        :width "1500"
+        :height "32"
+    )
+    :stacking "fg"
+    :wm-ignore false
+    :windowtype "dock"
+    :reserve (struts :distance "89" :side "top")    
+    (box :class "statusbar bar-middle" :orientation "h"
+        (box :class "window-status" :orientation "h" :space-evenly false :spacing 10 :halign "start"
+            (label :class "bar-icon window-icon" :text "")
+            (label :class "bar-text window-name" :text {window-name})
+        )
+        (box :class "time-status" :orientation "h" :space-evenly false :spacing 10 :halign "end"
+            (label :class "bar-icon time-icon" :text "")
+            (label :class "bar-text time" :text {time2})
+        )
+    )
+)
+
+(defwindow bar-right
+    :monitor 0
+    :geometry (geometry
+        :x "1758"
+        :y "57"
+        :width "146"
+        :height "32"
+    )
+    :stacking "fg"
+    :wm-ignore false
+    :windowtype "dock"
+    :reserve (struts :distance "89" :side "top")    
+    (box :class "statusbar bar-right"
+    "hiii")
+)

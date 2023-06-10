@@ -1,0 +1,27 @@
+#!/bin/bash
+# https://github.com/fuku77
+
+# This script is called when mod+shift+R is used to restart xmonad
+
+# Linking some things around for quick access
+if [ -f "$HOME/.fk/env" ]; then
+	
+	source ~/.fk/env
+	
+	# Link user settings file
+	ln -srf ~/.config/xmonad/lib/User/Settings.hs ~/.fk/user.conf
+
+	# Link Theme Folder
+	rm ~/.fk/Theme; ln -srf "$HOME"/.config/xmonad/lib/Themes/"$FK_THEME" ~/.fk/Theme
+	
+	# Link theme's Config.hs / Theme.hs file to the .fk folder
+	if [ -f "$HOME/.config/xmonad/lib/Themes/$FK_THEME/Config.hs" ]; then 
+		ln -srf ~/.config/xmonad/lib/Themes/"$FK_THEME"/Config.hs ~/.fk/theme.conf
+	else 
+		ln -srf ~/.config/xmonad/lib/Themes/"$FK_THEME"/Theme.hs ~/.fk/theme.conf 
+	fi
+fi
+
+
+
+killall -q xmobar

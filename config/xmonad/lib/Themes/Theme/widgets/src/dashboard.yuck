@@ -1,0 +1,349 @@
+;;;;; https://github.com/fuku77
+
+;; profile
+(defwidget profile [] (box :halign "center" :class "profile-picture" :style "background-image: url('${profile-picture-path}');"))
+
+(defpoll profile-picture-path   :interval "1m"    :initial "."                        `echo $HOME/.fk/profile.png`)
+(defpoll username               :interval "24h"   :initial "."                        `echo $USER | sed 's/.*/\\u&/'`)
+(defpoll user-host              :interval "24h"   :initial "."                        `echo "$(whoami)@$(hostname)" `)
+
+;; time & date
+(defpoll time                   :interval "1s"    :initial "00:00"                    `date +%H:%M`)
+(defpoll date                   :interval "5s"    :initial "."                        `date +'%A, %B %d'`)
+
+;; volume
+(defpoll vol                    :interval "0.05s" :initial "0"                        `pamixer --get-volume`)
+(defpoll volume-icon            :interval "0.2s"  :initial "."                        `../scripts/get-vol-level.sh 󰝟 󰕿 󰖀 󰕾`)
+
+;; fortune
+(defpoll fortune-mod            :interval "10m"   :initial "."                        `fortune -s -n 60 | head -n 1`)
+
+;; mpd
+(defpoll mpd-cover              :interval "0.1s"  :initial "."                        `echo /tmp/mpd_cover.jpg`)
+(defpoll mpd-title              :interval "0.1s"  :initial "."                        `./scripts/mpd-title.sh`)
+(defpoll mpd-artist             :interval "0.1s"  :initial "."                        `mpc current -f '%artist%'`)
+(defpoll music-progress-percent :interval "0.3s"  :initial "0"                        `mpc status '%percenttime%' | sed 's/\\ *\\(.*\\)%/\1/'`) ; UNUSED
+(defpoll music-pause-button     :interval "0.1s"  :initial "0"                        `[ "$(mpc status '%state%')" = "playing" ] && echo "󰏤" || echo "󰐊"`)
+
+;; storage
+(defpoll home-dir-list-json     :interval "10m"   :initial "[\"home-dir-list-json\"]" `echo '["fill",'; cd ~ && ls -w 1 -d */ | sed '/\\/$/ s_\\(.*\\)/_"\\1",_'; echo '"$HOME"]'`)
+(defpoll home-used-storage      :interval "5m"    :initial "."                        `df -h "$HOME" --output="used" | tail -1 | sed 's_\\ *\\([0-9]\\+\\)G_\\1 GB_'`)
+
+;; weather
+(defpoll weather-icon           :interval "5m"    :initial "-"                        `./scripts/get-weather.sh --icon`)
+(defpoll weather-temp           :interval "5m"    :initial "-"                        `./scripts/get-weather.sh --temp`)
+(defpoll weather-color          :interval "5m"    :initial "-"                        `./scripts/get-weather.sh --hex`)
+(defpoll weather-status         :interval "5m"    :initial "-"                        `./scripts/get-weather.sh --stat`)
+(defpoll weather-quote-short    :interval "5m"    :initial "-"                        `./scripts/get-weather.sh --quote`)
+(defpoll weather-quote-long     :interval "5m"    :initial "-"                        `./scripts/get-weather.sh --quote2`)
+
+;; sysfetch
+(defpoll syspkgs                :interval "1m"    :initial "0"                        `neofetch packages --package_managers off | sed 's/.*: \\(.*\\)/\\1/'`)
+(defpoll sysuptime              :interval "1m"    :initial "0m"                       `neofetch uptime --uptime_shorthand tiny | sed 's/.*: \\(.*\\)/\\1/'`)
+(defpoll os                     :interval "10m"   :initial "os"                       `neofetch distro --os_arch no | sed 's/.*: \\([^[:blank:]]*\\).*/\\1/'`)
+
+(defpoll sysuser                :interval "10m"   :initial "user"                     `echo "$USER"`)
+(defpoll kernel                 :interval "10m"   :initial "kernel"                   `uname -r`)
+(defpoll shell                  :interval "10m"   :initial "shell"                    `basename "$SHELL"`)
+
+;; hardware
+(defpoll speedtest-json         :interval "10s"   :initial "."                        `speedtest --json`)
+
+; Windows
+
+; Profile Picture & User Info
+(defwindow dashboard-profile
+    :monitor 0
+    :windowtype "dock"
+    :geometry (geometry
+        :x "15%"
+        :y "20%"
+        :width "14%"
+        :height "40%"
+    )
+    
+    (box :class "winbase profile-box" :orientation "v" :valign "center" :halign "center" :spacing 40 :space-evenly false
+
+        (box :spacing 15 :space-evenly false :orientation "v" 
+            (profile)
+            (box :spacing 0 :orientation "v" :space-evenly false
+                (label :class "username" :text username)
+                (label :class "user-host" :text user-host)
+            ))
+        (box :class "dots" :halign "center" :orientation "h" :spacing 20 :space-evenly false
+            (label :text "")
+            (label :text "")
+            (label :text "")
+            (label :text "")
+            (label :text "")
+            (label :text "")
+        )
+    )
+)
+
+(defwindow dashboard-apps
+    :monitor 0
+    :windowtype "dock"
+    :geometry (geometry
+        :x "57%"
+        :y "62%"
+        :width "13%"
+        :height "18%"
+    )
+    
+    (box :class "winbase apps-box" :orientation "v" :valign "center" :halign "center" :spacing 10 :space-evenly false
+    
+        (box :class "apps-line" :orientation "h" :spacing 20 :space-evenly false
+            (button :class "app browser" :onclick "xdotool search --classname Navigator windowactivate || firefox & eww --config ~/.fk/Theme/widgets close-all" "")
+            (button :class "app discord" :onclick "xdotool search --classname Discord search --role browser-window windowactivate || Discord & eww --config ~/.fk/Theme/widgets close-all" "   󰙯")
+            (button :class "app terminal" :onclick "kitty --working-directory $HOME & eww --config ~/.fk/Theme/widgets close-all" "   ")
+        )
+        (box :class "apps-line" :orientation "h" :spacing 20 :space-evenly false
+            (button :class "app steam" :onclick "xdotool search --classname --onlyvisible Steam windowactivate || steam & eww --config ~/.fk/Theme/widgets close-all" "")
+            (button :class "app vscode" :onclick "xdotool search --classname --onlyvisible code windowactivate || code & eww --config ~/.fk/Theme/widgets close-all" "   ﬏")
+            (button :class "app music-app" :onclick "xdotool search --classname ncmpcpp windowactivate || music & eww --config ~/.fk/Theme/widgets close-all" "")
+        )    
+    )
+)
+
+(defwindow dashboard-weather
+    :monitor 0
+    :windowtype "dock"
+    :geometry (geometry 
+        :x "30%"
+        :y "35%"
+        :width "19%"
+        :height "25%"
+    )
+    
+    (box :class "winbase weather-box" :orientation "v" :spacing 0 :space-evenly false
+
+        (box :class "weather-icon-temp" :orientation "h" :spacing -10 :space-evenly false
+            (label :class "weather-icon" :halign "start" :valign "start" :text "${weather-icon}")
+            (label :class "weather-temp" :halign "end" :valign "center" :text "${weather-temp} "))
+        
+        (box :class "weather-quotes-stat" :orientation "v" :spacing 10 :space-evenly false
+            (label :class "weather-status" :text weather-status)
+            (label :class "weather-quote-long" :text weather-quote-long :xalign "0.5" :wrap true ))
+    )
+)
+
+; Time & Date
+(defwindow dashboard-time
+    :monitor 0
+    :windowtype "dock"
+    :geometry (geometry 
+        :x "30%"
+        :y "20%"
+        :width "19%"
+        :height "13%"
+    )
+    
+    (box :class "winbase time-box" :orientation "v" :valign "center" :halign "center" :spacing -7 :space-evenly false
+
+        (label :class "timetext" :text time)
+        (label :class "datetext" :text date))
+)
+
+; Fortune quote
+(defwindow dashboard-fortune
+    :monitor 0
+    :windowtype "dock"
+    :geometry (geometry
+        :x "15%"
+        :y "62%"
+        :width "16%"
+        :height "18%"
+    )
+
+    (box :class "winbase fortune-box"
+         :orientation "v"
+         :valign "center"
+         :halign "center"
+         :spacing 15
+         :space-evenly false
+        (label :class "fortune-icon" :text "")
+        (label :class "fortune-text" :wrap true :width 50 :text fortune-mod))
+)
+
+(defwindow dashboard-music
+    :monitor 0
+    :windowtype "dock"
+    :geometry (geometry
+        :x "32%"
+        :y "62%"
+        :width "24%"
+        :height "18%"
+    )
+
+    (box :class "winbase music-box" :orientation "h" :valign "center" :halign "center" :spacing 30 :space-evenly false
+
+        (box :class "music-album-art" :halign "center" :style "background-image: url('${mpd-cover}')")
+        (box :class "music-box-info-buttons"
+             :orientation "v"
+             :spacing 30
+             :space-evenly false
+            (box :class "music-box-info"
+                 :orientation "v"
+                 :valign "start"
+                 :spacing 10
+                 :space-evenly false
+                (label :class "music-title"  :halign "start" :text mpd-title)
+                (label :class "music-artist" :halign "start" :limit-width 20 :text "by ${mpd-artist}")
+            )
+            (box :class "music-box-buttons"
+                 :orientation "h"
+                 :halign "center"
+                 :valign "end"
+                 :spacing 30
+                 :space-evenly false
+                (button :class "music-previous" :valign "end" :onclick "mpc -q prev" "󰒮")
+                (button :class "music-toggle"   :onclick "mpc -q toggle" {music-pause-button})
+                (button :class "music-next"     :onclick "mpc -q next" "󰒭"))
+            ; (scale 
+            ;     :class "music-progress"
+            ;     :orientation "h"
+            ;     :max 101
+            ;     :min 0
+            ;     :value music-progress-percent
+            ;     :width 200
+            ;     :height 20
+            ;     :active true
+            ;     :onchange "mpc seek {}%")
+        )
+    )
+)
+
+; Volume slider
+(defwindow dashboard-volume 
+    :monitor 0
+    :windowtype "dock"
+    :geometry (geometry
+        :x "50%"
+        :y "20%"
+        :width "3%"
+        :height "25%"
+    )
+
+    (box :class "winbase volume-box" :orientation "v" :valign "center" :halign "center" :spacing 5 :space-evenly false
+        (eventbox
+            :onscroll "[ {} = up ] && pamixer -i 1 || pamixer -d 1"
+            (box :orientation "v" :valign "center" :halign "center" :spacing 5 :space-evenly false
+                (scale 
+                    :class "volume-slider"
+                    :orientation "v"
+                    :max 101
+                    :min 0
+                    :value vol
+                    :width 25
+                    :height 180
+                    :active true
+                    :flipped true
+                    :onchange "pamixer --set-volume {}"
+                )
+                (label :class "volume-indicator" :text vol)))
+        (button :class "volume-slider-button" :onclick "pamixer -t" volume-icon))
+)
+
+(defwindow dashboard-sysfetch
+    :monitor 0
+    :windowtype "dock"
+    :geometry (geometry 
+        :x "50%"
+        :y "47%"
+        :width "20%"
+        :height "13%"
+    )
+
+    (box :class "winbase sysfetch-box" :orientation "v" :spacing 5 :space-evenly false :valign "center" :halign "center"
+        (box :class "sysfetch-row-1" :orientation "h" :spacing 20 :space-evenly false :valign "center" :halign "center"
+            (box :class "sysuser-box" :orientation "h" :spacing -5 :space-evenly false
+                (label :class "sysuser-label" :text " ")
+                (label :class "sysuser" :text sysuser))
+            (box :class "os-box" :orientation "h" :spacing -5 :space-evenly false
+                (label :class "os-label" :text " ")
+                (label :class "os" :text os))
+            (box :class "kernel-box" :orientation "h" :spacing -5 :space-evenly false
+                (label :class "kernel-label" :text " ")
+                (label :class "kernel" :text kernel))
+        )
+        (box :class "sysfetch-row-2" :orientation "h" :spacing 20 :space-evenly false :valign "center" :halign "center"
+            (box :class "sysuptime-box" :orientation "h" :spacing -5 :space-evenly false
+                (label :class "sysuptime-label" :text " ")
+                (label :class "sysuptime" :text sysuptime))
+            (box :class "shell-box" :orientation "h" :spacing -5 :space-evenly false
+                (label :class "shell-label" :text " ")
+                (label :class "shell" :text shell))
+            (box :class "syspkgs-box" :orientation "h" :spacing -5 :space-evenly false
+                (label :class "syspkgs-label" :text " ")
+                (label :class "syspkgs" :text syspkgs))
+        )
+    )
+)
+
+(defwindow dashboard-hardware
+    :monitor 0
+    :windowtype "dock"
+    :geometry (geometry
+        :x "54%"
+        :y "20%"
+        :width "26%"
+        :height "25%"
+    )
+    (box :class "winbase hardware-box"
+        (label :text speedtest-json)
+    )
+)
+
+(defwindow dashboard-powerbuttons
+    :monitor 0
+    :windowtype "dock"
+    :geometry (geometry
+        :x "81%"
+        :y "20%"
+        :width "4%"
+        :height "25%")
+    (box :class "winbase powerbuttons-box"
+         :orientation "v"
+         :spacing 10
+         :space-evenly false
+         :valign "center"
+         :halign "center"
+        
+        (button :class "shutdown" :onclick "loginctl poweroff" "󰐥")
+        (button :class "restart" :onclick "loginctl reboot" "󰜉")
+        (button :class "suspend" :onclick "loginctl suspend" "󰤄")
+        (button :class "logout" :onclick "loginctl terminate-session $XDG_SESSION_ID" "󰍃")
+        (button :class "lock" :onclick "loginctl suspend" "󰌾")
+    )
+)
+
+(defwindow dashboard-directories
+    :monitor 0
+    :windowtype "dock"
+    :geometry (geometry
+        :x "71%"
+        :y "47%"
+        :width "14%"
+        :height "33%")
+    
+    (box :class "winbase directory-box"
+         :orientation "v"
+         :valign "center"
+         :halign "center"
+         :spacing 10
+         :space-evenly false
+        (box :class "disk-usage-box" :valign "center" :orientation "h" :space-evenly false :spacing 5
+            (label :class "disk-usage-icon" :halign "start" :text "")
+            (label :class "disk-usage" :halign "end" :text {home-used-storage})
+        )
+        (box :class "directory-buttons" :orientation "v" :space-evenly false :spacing 10 :valign "center" :halign "center"
+            (for entry in "${[home-dir-list-json[1], home-dir-list-json[2], home-dir-list-json[3], home-dir-list-json[4], home-dir-list-json[5]]}"
+                (button :class "generic-dir-button ${entry}-button" 
+                        :onclick ". ~/.fk/env; $FK_FILE_BROWSER ~/${entry}"
+                        :halign "start"
+                    " ${entry}")))
+    )
+)
+
+
