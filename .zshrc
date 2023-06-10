@@ -56,4 +56,4 @@ source "$HOME/.config/zsh/asrc"
 export PF_INFO="os wm uptime pkgs shell memory palette"
 
 # ghcup haskell thing
-[ -f "/home/zen/.ghcup/env" ] && source "/home/zen/.ghcup/env" # ghcup-env
+[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
