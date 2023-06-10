@@ -1,4 +1,4 @@
 *.log
 *.lock
-*.conf
+weather.conf
 .stack-work
