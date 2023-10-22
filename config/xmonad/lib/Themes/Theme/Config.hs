@@ -63,7 +63,7 @@ barPosition = U
 screenWidth = 1920
 screenHeight = 1080
 
-themeWallpaper = ".wallpapers/1653864568856_1628035900200.png"
+themeWallpaper = ".wallpapers/1658951810930025_1639400194484.jpg"
 
 themePicomSettings = "--corner-radius 8"
 
