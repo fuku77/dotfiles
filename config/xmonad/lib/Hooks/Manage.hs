@@ -79,9 +79,15 @@ myManageHook =
         , className =? "steam_app_881100"                                   --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 4))
         , className =? "steam_app_1388770"                                  --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 4))
         , className =? "steam_app_411370"                                   --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 4))
+        , className =? "steam_app_303310"                                   --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 4))
+        , className =? "steam_app_1454400"                                  --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 4))
+        , className =? "steam_app_2121980"                                  --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 4))
+        , className =? "steam_app_2379780"                                  --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 4))
+        , className =? "steam_app_787480"                                   --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 4))
         , className =? "genshinimpact.exe"                                  --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 4))
         , className =? "tsukihime.exe"                                      --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 4))
         , className =? "Slay the Spire"                                     --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 4))
+        , className =? "darksoulsremastered.exe"                            --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 4))
         , appName   =? "vampire_survivors"                                  --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 4))
         , appName   =? "Binding of Isaac: Rebirth"                          --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 4))
 	, title     =? "VampireSurvivors"                                   --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 4))
@@ -93,6 +99,7 @@ myManageHook =
         , title     =? "LibraryOfRuina"                                     --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 4))
         , title     =? "LimbusCompany"                                      --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 4))
         , title     =? "Spelunky"                                           --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 4))
+        , title     =? "Spelunky 2"                                         --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 4))
         , title     =? "TheSilverCase"                                      --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 4))
         , title     =? "Rain World"                                         --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 4))
 
@@ -100,6 +107,9 @@ myManageHook =
 	, className =? "Steam"                                              --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 5))
 	, className =? "steamwebhelper"                                     --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 5))
         , title     =? "Steam"                                              --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 5))
+
+        -- Workspaces: Downloads
+	, className =? "qBittorrent"                                        --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 5))
 
         -- Workspaces: Passwords
         , className =? "KeePassXC"                                          --> doShift (fromMaybe ( last themeWorkspaces ) (themeWorkspaces ^? element 7))

@@ -12,7 +12,7 @@ firefox &
 Discord & # For the void users (me)
 steam &
 # keepassxc &
-$HOME/Downloads/ASF/ArchiSteamFarm &
+# $HOME/Downloads/ASF/ArchiSteamFarm &
 
 # mpd notifyer 'daemon' script
 nohup $FK_SCRIPT_DIR/mpd-notifyer.sh 0<&- &>/dev/null &
